@@ -190,7 +190,7 @@ export function AccessGate({ onAccessGranted }: AccessGateProps) {
        result: allCorrect ? "PASSED" : "FAILED",
        userAgent: navigator.userAgent
       })
-   })
+    })
     if (allCorrect) {
       setMessage(successMessages[Math.floor(Math.random() * successMessages.length)])
       setMessageType("success")
