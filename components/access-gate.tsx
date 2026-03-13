@@ -89,6 +89,8 @@ export function AccessGate({ onAccessGranted }: AccessGateProps) {
   const [glitchEffect, setGlitchEffect] = useState(false)
   const [typedChars, setTypedChars] = useState("")
   const [showChaosMode, setShowChaosMode] = useState(false)
+  const [visitorName, setVisitorName] = useState("")
+
 
   // Idle comment timer
   useEffect(() => {
@@ -165,6 +167,11 @@ export function AccessGate({ onAccessGranted }: AccessGateProps) {
   }
 
   const handleSubmit = useCallback(async () => {
+    if (!visitorName.trim()) {
+      setMessage("Please enter your name. I want to judge you personally.")
+      setMessageType("error")
+      return
+    }
     setIsProcessing(true)
     setMessage("")
     
@@ -186,9 +193,11 @@ export function AccessGate({ onAccessGranted }: AccessGateProps) {
       headers: {
       "Content-Type": "application/json"
      },
+      
       body: JSON.stringify({
        result: allCorrect ? "PASSED" : "FAILED",
-       userAgent: navigator.userAgent
+       userAgent: navigator.userAgent,
+       visitorName: visitorName
       })
     })
     if (allCorrect) {
@@ -303,6 +312,19 @@ export function AccessGate({ onAccessGranted }: AccessGateProps) {
               <p className="text-[#9B5DE5]/60 text-xs font-mono">
                 (Hint: Being wrong is a personality trait here, not a bug.)
               </p>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm text-gray-400">
+                Identify yourself (required)
+              </label>
+              <Input
+                value={visitorName}
+                onChange={(e) => setVisitorName(e.target.value)}
+                placeholder="Enter your name... if you want to be judged personally"
+                className="font-mono bg-input border-border focus:border-primary focus:ring-primary/20"
+              />
+
             </div>
             
             {/* Questions */}

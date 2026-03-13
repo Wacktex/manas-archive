@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
 
   const logData = {
     ip,
+    name: body.visitorName || "Unknown Visitor",
     city,
     region,
     country,
@@ -36,6 +37,7 @@ export async function POST(req: NextRequest) {
       subject: "Manas Archive Access Attempt",
       html: `
       <h2>Archive Access Attempt</h2>
+      <p><b>Name:</b> ${logData.name}</p>
       <p><b>Result:</b> ${logData.result}</p>
       <p><b>IP:</b> ${logData.ip}</p>
       <p><b>Location:</b> ${logData.city}, ${logData.region}, ${logData.country}</p>
