@@ -181,7 +181,16 @@ export function AccessGate({ onAccessGranted }: AccessGateProps) {
     const phraseCorrect = exactlyPhrase.toLowerCase().trim() === "eggjactly"
     
     const allCorrect = dogCorrect && cookCorrect && phraseCorrect
-    
+    await fetch("/api/log-access", {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json"
+     },
+      body: JSON.stringify({
+       result: allCorrect ? "PASSED" : "FAILED",
+       userAgent: navigator.userAgent
+      })
+   })
     if (allCorrect) {
       setMessage(successMessages[Math.floor(Math.random() * successMessages.length)])
       setMessageType("success")
