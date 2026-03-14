@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
    const response = await resend.emails.send({
      from: "onboarding@resend.dev",
-     to: "suuuckdiiick83@gmail.com",
+     to: "manasgoel2005@gmail.com",
      subject: "Manas Archive Access Attempt",
      html: `
      <h2>Archive Access Attempt</h2>
