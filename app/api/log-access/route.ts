@@ -31,20 +31,21 @@ export async function POST(req: NextRequest) {
 
   try {
 
-    await resend.emails.send({
-      from: "archive@resend.dev",
-      to: "suuuckdiiick83@gmail.com",
-      subject: "Manas Archive Access Attempt",
-      html: `
-      <h2>Archive Access Attempt</h2>
-      <p><b>Name:</b> ${logData.name}</p>
-      <p><b>Result:</b> ${logData.result}</p>
-      <p><b>IP:</b> ${logData.ip}</p>
-      <p><b>Location:</b> ${logData.city}, ${logData.region}, ${logData.country}</p>
-      <p><b>Device:</b> ${logData.device}</p>
-      <p><b>Time:</b> ${logData.time}</p>
-      `
-    })
+   const response = await resend.emails.send({
+     from: "onboarding@resend.dev",
+     to: "suuuckdiiick83@gmail.com",
+     subject: "Manas Archive Access Attempt",
+     html: `
+     <h2>Archive Access Attempt</h2>
+     <p><b>Name:</b> ${logData.name}</p>
+     <p><b>Result:</b> ${logData.result}</p>
+     <p><b>IP:</b> ${logData.ip}</p>
+     <p><b>Location:</b> ${logData.city}, ${logData.region}, ${logData.country}</p>
+     <p><b>Device:</b> ${logData.device}</p>
+     <p><b>Time:</b> ${logData.time}</p>
+    `})
+
+    console.log("EMAIL RESPONSE", response)
 
   } catch (err) {
     console.log("Email send failed", err)
